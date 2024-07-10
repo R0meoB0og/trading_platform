@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trading Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Trading Platform</h1>
+    <form method="get" action="/">
+        <label for="filter">Filter by score:</label>
+        <select name="filter" id="filter" onchange="this.form.submit()">
+            <option value="average_score" {% if filter_type == 'average_score' %}selected{% endif %}>Average Score</option>
+            <option value="animal_life_score" {% if filter_type == 'animal_life_score' %}selected{% endif %}>Animal Life Score</option>
+            <option value="vegetation_score" {% if filter_type == 'vegetation_score' %}selected{% endif %}>Vegetation Score</option>
+            <option value="water_quality_score" {% if filter_type == 'water_quality_score' %}selected{% endif %}>Water Quality Score</option>
+            <option value="poverty_score" {% if filter_type == 'poverty_score' %}selected{% endif %}>Poverty Score</option>
+            <option value="equality_score" {% if filter_type == 'equality_score' %}selected{% endif %}>Equality Score</option>
+            <option value="education_score" {% if filter_type == 'education_score' %}selected{% endif %}>Education Score</option>
+        </select>
+    </form>
+    <form method="post" action="/portfolio">
+        <table>
+            <tr>
+                <th>Stock</th>
+                <th>Score</th>
+                <th>Select</th>
+            </tr>
+            {% for stock in stocks %}
+            <tr>
+                <td>{{ stock.name }}</td>
+                <td>{{ stock.filtered_score }}</td>
+                <td><input type="checkbox" name="stocks" value="{{ stock.name }}"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Add to Portfolio</button>
+    </form>
+</body>
+</html>

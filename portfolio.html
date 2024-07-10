@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Portfolio</h1>
+    {% if selected_stocks %}
+    <table>
+        <tr>
+            <th>Stock</th>
+            <th>Score</th>
+        </tr>
+        {% for stock in selected_stocks %}
+        <tr>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.filtered_score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Average Score: {{ portfolio_average }}</p>
+    {% else %}
+    <p>No stocks selected.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
